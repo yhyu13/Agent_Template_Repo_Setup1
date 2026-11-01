@@ -1,0 +1,12 @@
+name: ci
+on: [pull_request, push]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO(agent): 把占位命令换成真实检查。最小可用组合：文档 lint（标记扫描）+ 脚本语法。
+      - name: TODO scan
+        run: grep -rn "TODO(agent)" --include="*.md" . | grep -v README.md || true
+      - name: Placeholder command 1
+        run: echo "TODO(agent): replace with real lint/test"
