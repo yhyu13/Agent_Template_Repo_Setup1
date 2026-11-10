@@ -10,6 +10,21 @@
 通用 agent 工作流模板仓库：issue → 分支 → worktree → 独立 review → 证据合并，
 带沉淀 inbox 和三个常驻 skill。
 
+## MVP additions
+
+- [docs/LEVELS.md](docs/LEVELS.md) — L0–L5 autonomy levels with explicit Do / Don't boundaries.
+- [docs/EXCEPTIONS.md](docs/EXCEPTIONS.md) — exception inbox based on GitHub issues, not email or mobile push.
+- [docs/SPEC_SUBMODULES.md](docs/SPEC_SUBMODULES.md) — attach local specs as independent Git submodules under `specs/`.
+- [scripts/exception_inbox.py](scripts/exception_inbox.py) — report, list, and watch exception issues.
+- [.github/ISSUE_TEMPLATE/agent-exception.md](.github/ISSUE_TEMPLATE/agent-exception.md) — human-readable exception issue template.
+
+Quick check:
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -v
+python scripts/exception_inbox.py report --repo owner/repo --task-id task-123 --agent-id agent --session-id session --level L2 --kind evidence --summary "Missing evidence" --dry-run
+```
+
 ## 复制后必改清单
 
 | 位置 | 动作 |

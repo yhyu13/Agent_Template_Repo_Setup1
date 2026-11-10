@@ -1,0 +1,22 @@
+name: Template CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  exception-inbox-selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run exception inbox tests
+        env:
+          PYTHONUTF8: '1'
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
