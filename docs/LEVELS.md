@@ -9,14 +9,23 @@ Exception reporting is allowed at every level because it writes to the control p
 
 ## Level table
 
-| Level | Name | Do | Don't |
-|---|---|---|---|
-| L0 | Observe | Read repo/docs/issues; inspect CI; draft a plan; open/update an exception issue when blocked. | Edit product files; commit; push; open PR; merge; change repo settings. |
-| L1 | Local draft | Create isolated worktree/branch; edit local files; run local tests; update exception issue. | Commit; push; open PR; merge; touch main; change governance. |
-| L2 | Branch + PR | Commit and push feature branch; open draft PR; run CI; attach evidence; update exception issue. | Merge PR; close task issue; force-push main; bypass checks; change governance. |
-| L3 | Green auto-merge | Merge a PR only when all required checks pass, evidence is complete, and the task is green; comment result on issue. | Merge yellow/red without approval; bypass checks; force-push main; expand scope. |
-| L4 | Bounded repair | Retry failed tests; rebase and resolve non-semantic conflicts; update branch; re-run CI; merge green after repair. | Change scope, credentials, budget, governance, or protected settings; self-approve red. |
-| L5 | Policy proposal | Propose governance/level changes via PR; improve exception taxonomy; prioritize issues. | Self-approve red changes; disable checks; expand own permissions; merge without required approval. |
+Every level lives under `levels/` as its own module with an independent,
+unique leaf name. The full Do / Don't / escalation content for a level is in
+its module README — this table is only the index.
+
+| Level | Module | One-line scope |
+|---|---|---|
+| L0 | [levels/L0-observe](../levels/L0-observe/README.md) | Read and plan only; no mutation of the repository. |
+| L1 | [levels/L1-local-draft](../levels/L1-local-draft/README.md) | Local worktree / branch edits and local tests; nothing leaves the machine. |
+| L2 | [levels/L2-branch-pr](../levels/L2-branch-pr/README.md) | Push feature branch, open draft PR, run CI, attach evidence. |
+| L3 | [levels/L3-green-merge](../levels/L3-green-merge/README.md) | Merge only fully green, in-scope PRs with complete evidence. |
+| L4 | [levels/L4-bounded-repair](../levels/L4-bounded-repair/README.md) | Bounded autonomous recovery: retries, rebase, mechanical fixes. |
+| L5 | [levels/L5-policy-proposal](../levels/L5-policy-proposal/README.md) | Propose governance changes; nothing bypasses review. |
+
+Module naming rule: `<level>-<slug>` (for example `L2-branch-pr`). The leaf
+name is the module's unique identity across the template; any module may later
+be promoted to its own repository and attached as a submodule, following
+[docs/SPEC_SUBMODULES.md](SPEC_SUBMODULES.md).
 
 ## Green / Yellow / Red overlay
 
