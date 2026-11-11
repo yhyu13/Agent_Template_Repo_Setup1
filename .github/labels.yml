@@ -1,0 +1,46 @@
+labels:
+  - name: agent-exception
+    color: "d73a4a"
+    description: Exception inbox entry readable by humans and agents.
+  - name: agent-actionable
+    color: "0e8a16"
+    description: An agent may attempt the next step within its level.
+  - name: needs-human
+    color: "fbca04"
+    description: A human decision is required; silence is not approval.
+  - name: kind/evidence
+    color: "c5def5"
+    description: Missing or invalid verification evidence.
+  - name: kind/conflict
+    color: "c5def5"
+    description: Merge or ownership conflict.
+  - name: kind/approval
+    color: "c5def5"
+    description: Approval required or expired.
+  - name: kind/tooling
+    color: "c5def5"
+    description: Tool, runner, auth, or environment failure.
+  - name: kind/scope
+    color: "c5def5"
+    description: Task exceeds allowed scope or level.
+  - name: kind/other
+    color: "c5def5"
+    description: Other exception.
+  - name: level/L0
+    color: "eeeeee"
+    description: Observe only.
+  - name: level/L1
+    color: "eeeeee"
+    description: Local draft.
+  - name: level/L2
+    color: "eeeeee"
+    description: Branch and PR.
+  - name: level/L3
+    color: "eeeeee"
+    description: Green auto-merge.
+  - name: level/L4
+    color: "eeeeee"
+    description: Bounded repair.
+  - name: level/L5
+    color: "eeeeee"
+    description: Policy proposal.

@@ -10,6 +10,22 @@
 通用 agent 工作流模板仓库：issue → 分支 → worktree → 独立 review → 证据合并，
 带沉淀 inbox 和三个常驻 skill。
 
+## MVP additions
+
+- [levels/](levels/) — one module per autonomy level (L0–L5), each with an independent unique leaf name and its full Do / Don't content.
+- [docs/LEVELS.md](docs/LEVELS.md) — index over the level modules, plus the Green/Yellow/Red overlay and transition rules.
+- [docs/EXCEPTIONS.md](docs/EXCEPTIONS.md) — exception inbox based on GitHub issues, not email or mobile push.
+- [docs/SPEC_SUBMODULES.md](docs/SPEC_SUBMODULES.md) — attach local specs as independent Git submodules under `specs/`.
+- [scripts/exception_inbox.py](scripts/exception_inbox.py) — report, list, and watch exception issues.
+- [.github/ISSUE_TEMPLATE/agent-exception.md](.github/ISSUE_TEMPLATE/agent-exception.md) — human-readable exception issue template.
+
+Quick check:
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -v
+python scripts/exception_inbox.py report --repo owner/repo --task-id task-123 --agent-id agent --session-id session --level L2 --kind evidence --summary "Missing evidence" --dry-run
+```
+
 ## 复制后必改清单
 
 | 位置 | 动作 |
@@ -26,6 +42,7 @@
 
 - `AGENTS.md` — agent 行为规范（红线、合并闸门、沉淀纪律）。`CLAUDE.md` 只做 `@AGENTS.md` 导入。
 - `docs/GIT_WORKFLOW.md` — 全流程操作手册；`docs/REVIEW.md`、`docs/TESTING.md` 按需填。
+- `levels/` — L0–L5 每个 level 一个独立命名模块（`L0-observe` … `L5-policy-proposal`），索引见 `docs/LEVELS.md`。
 - `.claude/skills/` — 三个常驻 skill：truth-seeking-research（求真）、prompt-pro（提纲）、skill-distill（沉淀）。
 - `.agent/inbox/` — agent 产出的候选沉淀，人审后合入；agent 不直接改 AGENTS.md。
 - `.github/` — PR 模板（Evidence/Risk/Rollback）、issue 契约表单、CODEOWNERS。
