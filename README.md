@@ -14,6 +14,8 @@
 
 - [levels/](levels/) — one module per autonomy level (L0–L5), each with an independent unique leaf name and its full Do / Don't content.
 - [docs/LEVELS.md](docs/LEVELS.md) — index over the level modules, plus the Green/Yellow/Red overlay and transition rules.
+- [docs/DECISIONS.md](docs/DECISIONS.md) — decision authority: what the agent may decide alone (A), what needs one minimal question set (B), what it must not decide at all (C). Orthogonal to the levels.
+- [memory/](memory/) — the routing layer an agent reads first: `symptom-routing.md` (symptom → files, one line per bug) and `invariants.md` (constraints that must not drift). Both are written in the same PR as the fix.
 - [docs/EXCEPTIONS.md](docs/EXCEPTIONS.md) — exception inbox based on GitHub issues, not email or mobile push.
 - [docs/SPEC_SUBMODULES.md](docs/SPEC_SUBMODULES.md) — attach local specs as independent Git submodules under `specs/`.
 - [scripts/exception_inbox.py](scripts/exception_inbox.py) — report, list, and watch exception issues.
@@ -43,6 +45,7 @@ python scripts/exception_inbox.py report --repo owner/repo --task-id task-123 --
 - `AGENTS.md` — agent 行为规范（红线、合并闸门、沉淀纪律）。`CLAUDE.md` 只做 `@AGENTS.md` 导入。
 - `docs/GIT_WORKFLOW.md` — 全流程操作手册；`docs/REVIEW.md`、`docs/TESTING.md` 按需填。
 - `levels/` — L0–L5 每个 level 一个独立命名模块（`L0-observe` … `L5-policy-proposal`），索引见 `docs/LEVELS.md`。
+- `memory/` — agent 的记忆路由层：`symptom-routing.md`（症状 → 文件，一行一个 bug）、`invariants.md`（不可漂移约束）。与修复同 PR 写入，写不成一行的就不进记忆。
 - `.claude/skills/` — 三个常驻 skill：truth-seeking-research（求真）、prompt-pro（提纲）、skill-distill（沉淀）。
 - `.agent/inbox/` — agent 产出的候选沉淀，人审后合入；agent 不直接改 AGENTS.md。
 - `.github/` — PR 模板（Evidence/Risk/Rollback）、issue 契约表单、CODEOWNERS。

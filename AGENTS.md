@@ -18,9 +18,28 @@
 
 | 文件 | 内容 |
 |---|---|
+| memory/README.md | **开工第一步**：症状路由表 + 不可漂移约束；`memory/` 优先于 `docs/` 旧长文 |
+| docs/DECISIONS.md | 决策权限：哪些自己拍板、哪些必须回用户、怎么问最小问题 |
 | docs/GIT_WORKFLOW.md | issue → 分支 → worktree → PR → review → merge 全流程与合并闸门 |
 | docs/REVIEW.md | reviewer 检查清单与 APPROVED 评论格式 |
 | docs/TESTING.md | 验证分级（L1 静态 / L2 行为 / L3 构建 / L4 真实环境） |
+
+开工顺序固定：`memory/README.md` → 命中的 `memory/*` 领域文档 → 改哪个目录读哪个目录的
+`AGENTS.md`。先查 `memory/symptom-routing.md`，没有命中就补一行——不先查等于每次重新踩坑。
+
+## 决策权限
+
+`docs/LEVELS.md` 回答"能不能动手"；本节回答"这个判断能不能自己拍板"。两者独立：一个 L3
+（可自动合并）的任务里，照样可能有必须回用户的判断。
+
+- **A 代码可判定** → 自行决定，在 PR 里留一行：决策 + 依据（`file:line`）。
+- **B 事实不在仓库里**（真机、真实网络、生产数据、用户要的口吻、没写下来的业务规则）→
+  发**一次**最小问题清单，然后停。
+- **C 产品 / 体验方向**（多个都可接受、没有事实能裁决）→ 给 2–3 个选项与后果，不替用户选。
+
+三条硬约束：不要因为"看起来显然"把 C 降级成 A——这是返工的高发区；不要多轮追问，问不到
+就升级为 C 给选项；问题必须能用产物回答（toast 原文 / 截图 / 机型与系统 / 具体那两行数据），
+禁止"你觉得怎样"。**沉默不是批准。** 决策表格式见 docs/DECISIONS.md。
 
 ## 硬红线
 
@@ -53,6 +72,10 @@
 
 该做到哪一级按「改动是否依赖真实的时间、网络、设备」定，分级规则见 docs/TESTING.md。
 
+**验证者不得是实现者。** 实现者自己跑的那叫自检，不叫验证；分级证据必须由另一个人
+（另一个会话 / 另一个 agent）跑并记录「在哪跑、什么命令、观察到什么、哪一级没做」。
+reviewer 与 verifier 可以是同一人，但都不能是作者。
+
 ## 上下文纪律
 
 - 不整读未变的文件；重读用 offset/limit。
@@ -68,12 +91,24 @@
 
 ## 沉淀纪律
 
-- **禁止 agent 直接编辑本文件与 memory/core/**（bootstrap 时填占位除外）。学到的坑、约定、
-  事实 → 写入 `.agent/inbox/<YYYY-MM-DD>-<短名>.md`：
+**两个出口，一个门槛，同一个 PR。**
+
+| 学到的东西 | 写到哪 | 形态 |
+|---|---|---|
+| 新症状（"用户这么说时该打开哪里"） | `memory/symptom-routing.md` | 一行 |
+| 不可漂移的约束 | `memory/invariants.md` | 一条：rule + because + check |
+
+- **门槛**：这轮学到的东西如果写不成上面两处的一行，它就不值得进记忆。写不成行说明还没
+  想清楚，或者它只是过程流水——过程写进 PR 描述就够了。
+- **同一个 PR**：症状行与约束条必须和修复一起进 PR，不要等验收后补。验收后的记忆一定丢。
+- **禁止 agent 直接编辑本文件**（bootstrap 填占位除外）。要改规则本身 → `.agent/inbox/`
+  提案，由人审。
+- `.agent/inbox/<YYYY-MM-DD>-<短名>.md` 是"还没把握 / 需要人裁决"的暂存区：
   `type: pitfall|convention|fact` / `confidence: verified|suspected` /
-  `suggested-home: AGENTS.md#<节> | memory/core/<篇>` / `source: "<证据>"`
-  + 一句话结论、为什么、怎么防。
-- inbox 由人定期审阅合入；suspected 且无证据的直接删。
+  `suggested-home: memory/<篇> | AGENTS.md#<节>` / `source: "<证据>"`；
+  suspected 且无证据的直接删。
+- **方向被推翻时，就地标注而不是删除**：在该段落前加
+  `⚠️ 本节已在 <YYYY-MM-DD> 修订：<新口径>`，并保留旧文。删掉旧方向，下一个人会重做一遍。
 
 ## 语言
 
